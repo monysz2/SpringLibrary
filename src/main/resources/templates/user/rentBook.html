@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Registration Form</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<form th:action="@{/}" method="get">
+	<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+</form>
+
+
+
+
+
+<div class="container">
+	<form th:action="@{/user/rentBook}" method="post" class="form-horizontal">
+		<fieldset>
+
+			<!-- Form Name -->
+			<legend>Rent a book</legend>
+
+			<!-- Select Basic -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="reader">Reader</label>
+				<div class="col-md-4">
+					<select th:field="${rent.reader}" id="reader" name="reader" class="form-control">
+						<option th:each="reader : ${readers}" th:text="${reader.getUser().getName()}+'('+${reader.getUser().getEmail()}+')'" th:value="${reader.getId()}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Select Basic -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="book">Book</label>
+				<div class="col-md-4">
+					<select th:field="${rent.book}" id="book" name="book" class="form-control">
+						<option  th:each="book : ${books}" th:text="${book.getTitle()}+'('+${book.getId()}+')'" th:value="${book.getId()}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="rentDate">Rent Date</label>
+				<div class="col-md-4">
+					<input th:field="${rent.rentDate}" th:value="${date}" disabled="disabled" id="rentDate" name="rentDate" type="text" placeholder="" class="form-control input-md">
+
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="days">Number of days</label>
+				<div class="col-md-4">
+					<input th:field="${rent.days}" id="days" name="days" type="text" placeholder="" class="form-control input-md">
+
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="add"></label>
+				<div class="col-md-4">
+					<button type="submit" id="add" name="add" class="btn btn-success">Rent</button>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+
+</div>
+
+
+
+
+</body>
+</html>

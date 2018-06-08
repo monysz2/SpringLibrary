@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</head>
+<body>
+<form th:action="@{/}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+</form>
+<div class="accordion" id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#userDetails" aria-expanded="true" aria-controls="collapseOne">
+                    User Data
+                </button>
+            </h5>
+        </div>
+
+        <div id="userDetails" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            Name:
+                        </div>
+                        <div th:text="${user.getName()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Surname:
+                        </div>
+                        <div th:text="${user.getLastName()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            email:
+                        </div>
+                        <div th:text="${user.getEmail()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Street:
+                        </div>
+                        <div th:text="${reader.getStreet()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Street:
+                        </div>
+                        <div th:text="${reader.getBuilding()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Street:
+                        </div>
+                        <div th:text="${reader.getFlat()}" class="col"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Phone:
+                        </div>
+                        <div th:text="${reader.getPhone()}" class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#books" aria-expanded="false" aria-controls="collapseTwo">
+                    My rented books
+                </button>
+            </h5>
+        </div>
+        <div id="books" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+                <table id="mytable" class="table table-bordred table-striped">
+
+                    <thead>
+
+                    <th><input type="checkbox" id="checkall" /></th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="book : ${books}">
+                        <td><input type="checkbox" class="checkthis" /></td>
+                        <td th:text="${book.getId()}"></td>
+                        <td th:text="${book.getTitle()}"></td>
+                      </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

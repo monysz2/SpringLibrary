@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<form th:action="@{/}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+</form>
+
+<div class="container">
+<form th:action="@{/user/saveReader}" method="post" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>New Reader</legend>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email">Email</label>
+            <div class="col-md-4">
+                <select th:field="${reader.user}" id="email" name="email" class="form-control">
+                    <option th:each="user : ${users}" th:value="${user.getId()}" th:text="${user.getEmail()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="street">Street</label>
+            <div class="col-md-4">
+                <input th:field="${reader.street}" id="street" name="street" type="text" placeholder="street" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="building">Building</label>
+            <div class="col-md-2">
+                <input th:field="${reader.building}" id="building" name="building" type="text" placeholder="building" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="flat">Flat</label>
+            <div class="col-md-2">
+                <input th:field="${reader.flat}" id="flat" name="flat" type="text" placeholder="flat" class="form-control input-md">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="city">City</label>
+            <div class="col-md-4">
+                <input th:field="${reader.city}" id="city" name="city" type="text" placeholder="city" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="zip">ZIP code</label>
+            <div class="col-md-2">
+                <input th:field="${reader.zip}" id="zip" name="zip" type="text" placeholder="00-000" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="phone">Phone number</label>
+            <div class="col-md-4">
+                <input th:field="${reader.phone}" id="phone" name="phone" type="text" placeholder="+00 000-000-000" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="add"></label>
+            <div class="col-md-4">
+                <button type="submit" id="add" name="add" class="btn btn-success">Add</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+</div>
+
+
+
+</body>
+</html>
