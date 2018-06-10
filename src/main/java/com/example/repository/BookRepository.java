@@ -22,7 +22,7 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     @Query("SELECT b FROM Book b WHERE b.id=?")
     @Modifying
     void removeBookById(int id);
-    @Query("SELECT b FROM Book b WHERE b.available='Y'")
+    @Query("SELECT b FROM Book b WHERE b.available='N'")
     Set<Book> getAllAvailableBooks();
     @Query("SELECT b FROM Book b WHERE b.id=? AND b.available=?")
     Set<Book> getAllRentedUserBooks(int bookId, String available);

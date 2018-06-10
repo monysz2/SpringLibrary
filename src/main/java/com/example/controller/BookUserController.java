@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,6 +62,7 @@ public class BookUserController {
         Date returnDate = new Date();
         returnDate.setTime(rent.getRentDate().getTime() + 3600*1000*24*rent.getDays());
         rent.setReturnDate(returnDate);
+        rent.setState(true);
         Book toChange = bookService.findBook(rent.getBook().getId());
         toChange.setAvailable("N");
         bookService.addBook(toChange);
@@ -90,12 +92,34 @@ public class BookUserController {
     public ModelAndView getReaderToServe(@Valid Reader readerSelect, BindingResult bindingResult)
     {
         ModelAndView modelAndView = new ModelAndView();
-        Reader reader = readerSelect;
+        Date today = new Date();
+        Reader reader = readerService.getReader(readerSelect.getId());
         Set<Rent> books = rentService.getAllUserBooks(reader.getId());
+        modelAndView.addObject("today",today);
         modelAndView.addObject("reader",reader);
         modelAndView.addObject("books",books);
         modelAndView.setViewName("user/readerService");
         return modelAndView;
 
+    }
+
+    @RequestMapping(value="/user/returnBook/{id}", method = RequestMethod.POST)
+    public ModelAndView returnBook(@PathVariable int id)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        Rent rent = rentService.getRentById(id);
+        Book book = rent.getBook();
+        book.setAvailable("N");
+        rent.setState(false);
+        bookService.addBook(book);
+        rentService.rentBook(rent);
+        Reader reader = rent.getReader();
+        Date today = new Date();
+        Set<Rent> books = rentService.getAllUserBooks(reader.getId());
+        modelAndView.addObject("reader",reader);
+        modelAndView.addObject("today",today);
+        modelAndView.addObject("books",books);
+        modelAndView.setViewName("user/readerService");
+        return modelAndView;
     }
 }

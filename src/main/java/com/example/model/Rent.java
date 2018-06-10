@@ -31,7 +31,17 @@ public class Rent {
   //  @Temporal(TemporalType.DATE)
     private java.util.Date returnDate;
 
+    private boolean state;
+
     private int days;
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 
     public int getDays() {
         return days;

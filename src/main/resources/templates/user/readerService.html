@@ -34,7 +34,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="reader"></label>
 						<div  class="col-md-4">
-							<select th:field="${readerSelect}" id="reader" name="reader" class="form-control">
+							<select th:object="${readerSelect}" id="reader" name="reader" class="form-control">
 								<option th:each="readerS : ${readers}" th:text="${readerS.getUser().getName()}+'('+${readerS.getUser().getEmail()}+')'" th:value="${readerS.getId()}"></option>
 							</select>
 						</div>
@@ -98,7 +98,78 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="row" th:if="${reader != null}">
+			<div id="accordion">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h5 class="mb-0">
+							<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								Book history
+							</button>
+						</h5>
+					</div>
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+						<div class="card-body">
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Book</th>
+									<th scope="col">Rent date</th>
+									<th scope="col">Return date</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:unless="${rent.isState()}" th:each="rent : ${reader.getRents()}">
+									<td scope="row" th:text="${rent.getId()}"></td>
+									<td scope="row" th:text="${rent.getBook().getTitle()}+' ['+${rent.getBook().getId()}+']'"></td>
+									<td scope="row" th:text="${rent.getRentDate()}"></td>
+									<td scope="row" th:text="${rent.getReturnDate()}"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header" id="headingTwo">
+							<h5 class="mb-0">
+								<button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+									Active rents:
+								</button>
+							</h5>
+						</div>
+					<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+						<div class="card-body">
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Book</th>
+									<th scope="col">Rent date</th>
+									<th scope="col">Return date</th>
+									<th scope="col">Option</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:if="${rent.isState()}" th:each="rent : ${reader.getRents()}">
+									<td scope="row" th:text="${rent.getId()}"></td>
+									<td scope="row" th:text="${rent.getBook().getTitle()}+' ['+${rent.getBook().getId()}+']'"></td>
+									<td scope="row" th:text="${rent.getRentDate()}"></td>
+									<td scope="row" th:text="${rent.getReturnDate()}"></td>
+									<td scope="row" >
+										<form th:action="@{/user/returnBook/{id}(id=${rent.getId()})}" method="post" class="form-horizontal"
+											  role="form">
+											<button type="submit" class="btn btn-danger" >Return book</button>
+										</form>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>
